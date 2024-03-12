@@ -1,5 +1,11 @@
 'use strict';
 
+const account0 = {
+  owner: 'Anuj Parashar',
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  interestRate: 1.2, // %
+  pin: 9999,
+};
 
 const account1 = {
   owner: 'Jonas Schmedtmann',
@@ -31,7 +37,6 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
-
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
 const labelBalance = document.querySelector('.balance__value');
@@ -57,15 +62,11 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-
-
 const displayMovements = function (movements, sort = false) {
   const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
-  
-  containerMovements.innerHTML = ''; 
+  containerMovements.innerHTML = '';
   movs.forEach(function (mov, i) {
-    
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
 
@@ -107,7 +108,6 @@ const calcDisplaySummary = function (acc) {
   labelSumInterest.textContent = `${int}€`;
 };
 
-
 const createUseranames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -119,7 +119,6 @@ const createUseranames = function (accs) {
 };
 createUseranames(accounts);
 
-
 const updateUI = function (acc) {
   displayMovements(acc.movements);
 
@@ -128,11 +127,10 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
-
 let currentAccount;
 btnLogin.addEventListener('click', function (e) {
-  e.preventDefault(); 
-  console.log('LOGIN'); 
+  e.preventDefault();
+  console.log('LOGIN');
 
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
@@ -140,8 +138,6 @@ btnLogin.addEventListener('click', function (e) {
   console.log(currentAccount);
 
   if (currentAccount.pin === Number(inputLoginPin.value)) {
-
-
     labelWelcome.textContent = `Welcome back ${
       currentAccount.owner.split(' ')[0]
     }`;
@@ -155,7 +151,7 @@ btnLogin.addEventListener('click', function (e) {
 });
 
 btnTransfer.addEventListener('click', function (e) {
-  e.preventDefault(); 
+  e.preventDefault();
   const amount = Number(inputTransferAmount.value);
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
@@ -195,74 +191,17 @@ btnClose.addEventListener('click', function (e) {
   ) {
     const index = accounts.findIndex(
       acc => acc.username === currentAccount.username
-    ); 
+    );
     accounts.splice(index, 1);
-
 
     containerApp.style.opacity = 0;
   }
 });
 
-let sorted = false; 
+let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  
 
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
